@@ -8,7 +8,7 @@ namespace WebApplication6.Controllers
 {
     public class HomeController : Controller
     {
-        
+        //это был рахитский проект!
         public ActionResult Index()
         {
             return View();
