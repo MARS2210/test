@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="f128b3f0723343d2aadc2e330ff18d72" Name="Diagram1">
+        <EntityTypeShape EntityType="Database1Model.Classes" Width="1.5" PointX="7.75" PointY="6.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Database1Model.Lessons" Width="1.5" PointX="11.125" PointY="7" IsExpanded="true" />
+        <EntityTypeShape EntityType="Database1Model.Shedule" Width="1.5" PointX="11" PointY="3.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Database1Model.Subjects" Width="1.5" PointX="7.5" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Database1Model.Teacher_class" Width="1.5" PointX="5.125" PointY="6.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Database1Model.Teacher_subject" Width="1.5" PointX="4.25" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Database1Model.Teachers" Width="1.5" PointX="2.375" PointY="3.875" IsExpanded="true" />
+        <AssociationConnector Association="Database1Model.FK_Shedule_ToClasses" ManuallyRouted="false" />
+        <AssociationConnector Association="Database1Model.FK_Teacher_class_ToClasses" ManuallyRouted="false" />
+        <AssociationConnector Association="Database1Model.FK_Shedule_ToLessons" ManuallyRouted="false" />
+        <AssociationConnector Association="Database1Model.FK_Shedule_ToSubject" ManuallyRouted="false" />
+        <AssociationConnector Association="Database1Model.FK_Shedule_ToTeacher" ManuallyRouted="false" />
+        <AssociationConnector Association="Database1Model.FK_Teacher_subject_ToSubjects" ManuallyRouted="false" />
+        <AssociationConnector Association="Database1Model.FK_Teacher_class_ToTeachers" ManuallyRouted="false" />
+        <AssociationConnector Association="Database1Model.FK_Teacher_subject_ToTeachers" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

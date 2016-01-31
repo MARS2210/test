@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Хранилище Database1ModelContainer" CdmEntityContainer="Database1Entities1">
+    <EntitySetMapping Name="Classes">
+      <EntityTypeMapping TypeName="Database1Model.Classes">
+        <MappingFragment StoreEntitySet="Classes">
+          <ScalarProperty Name="IdClass" ColumnName="IdClass" />
+          <ScalarProperty Name="Number_of_class" ColumnName="Number_of_class" />
+          <ScalarProperty Name="Letter_of_class" ColumnName="Letter_of_class" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Lessons">
+      <EntityTypeMapping TypeName="Database1Model.Lessons">
+        <MappingFragment StoreEntitySet="Lessons">
+          <ScalarProperty Name="IdLesson" ColumnName="IdLesson" />
+          <ScalarProperty Name="Time_of_start" ColumnName="Time_of_start" />
+          <ScalarProperty Name="Time_of_end" ColumnName="Time_of_end" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Shedule">
+      <EntityTypeMapping TypeName="Database1Model.Shedule">
+        <MappingFragment StoreEntitySet="Shedule">
+          <ScalarProperty Name="Day_of_week" ColumnName="Day_of_week" />
+          <ScalarProperty Name="IdLesson" ColumnName="IdLesson" />
+          <ScalarProperty Name="IdClass" ColumnName="IdClass" />
+          <ScalarProperty Name="IdTeacher" ColumnName="IdTeacher" />
+          <ScalarProperty Name="IdSubject" ColumnName="IdSubject" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Subjects">
+      <EntityTypeMapping TypeName="Database1Model.Subjects">
+        <MappingFragment StoreEntitySet="Subjects">
+          <ScalarProperty Name="IdSubject" ColumnName="IdSubject" />
+          <ScalarProperty Name="Number_of_class" ColumnName="Number_of_class" />
+          <ScalarProperty Name="Name_of_subject" ColumnName="Name_of_subject" />
+          <ScalarProperty Name="Hours_per_week" ColumnName="Hours_per_week" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Teacher_class">
+      <EntityTypeMapping TypeName="Database1Model.Teacher_class">
+        <MappingFragment StoreEntitySet="Teacher_class">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="IdTeacher" ColumnName="IdTeacher" />
+          <ScalarProperty Name="IdClass" ColumnName="IdClass" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Teacher_subject">
+      <EntityTypeMapping TypeName="Database1Model.Teacher_subject">
+        <MappingFragment StoreEntitySet="Teacher_subject">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="IdTeacher" ColumnName="IdTeacher" />
+          <ScalarProperty Name="IdSubject" ColumnName="IdSubject" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Teachers">
+      <EntityTypeMapping TypeName="Database1Model.Teachers">
+        <MappingFragment StoreEntitySet="Teachers">
+          <ScalarProperty Name="IdTeacher" ColumnName="IdTeacher" />
+          <ScalarProperty Name="Full_name" ColumnName="Full_name" />
+          <ScalarProperty Name="Number_of_audience" ColumnName="Number_of_audience" />
+          <ScalarProperty Name="Hours_per_week" ColumnName="Hours_per_week" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

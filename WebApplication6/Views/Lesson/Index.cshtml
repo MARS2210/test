@@ -1,0 +1,43 @@
+﻿@model IEnumerable<WebApplication6.Models.Lessons>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Time_of_start)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Time_of_end)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Time_of_start)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Time_of_end)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.IdLesson }) |
+            @Html.ActionLink("Details", "Details", new { id=item.IdLesson }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.IdLesson })
+        </td>
+    </tr>
+}
+
+</table>
+<p>
+    @Html.ActionLink("Back to home page", "Index", "Home")
+</p>

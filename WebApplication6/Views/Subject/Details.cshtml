@@ -1,0 +1,43 @@
+﻿@model WebApplication6.Models.Subjects
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Subjects</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Number_of_class)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Number_of_class)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Name_of_subject)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name_of_subject)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Hours_per_week)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Hours_per_week)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.IdSubject }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

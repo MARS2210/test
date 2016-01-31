@@ -1,0 +1,521 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище Database1Model" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Classes">
+          <Key>
+            <PropertyRef Name="IdClass" />
+          </Key>
+          <Property Name="IdClass" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Number_of_class" Type="int" Nullable="false" />
+          <Property Name="Letter_of_class" Type="nchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Lessons">
+          <Key>
+            <PropertyRef Name="IdLesson" />
+          </Key>
+          <Property Name="IdLesson" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Time_of_start" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="Time_of_end" Type="nchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Shedule">
+          <Key>
+            <PropertyRef Name="Day_of_week" />
+            <PropertyRef Name="IdLesson" />
+          </Key>
+          <Property Name="Day_of_week" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="IdLesson" Type="int" Nullable="false" />
+          <Property Name="IdClass" Type="int" Nullable="false" />
+          <Property Name="IdTeacher" Type="int" Nullable="false" />
+          <Property Name="IdSubject" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Subjects">
+          <Key>
+            <PropertyRef Name="IdSubject" />
+          </Key>
+          <Property Name="IdSubject" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Number_of_class" Type="int" Nullable="false" />
+          <Property Name="Name_of_subject" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Hours_per_week" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Teacher_class">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdTeacher" Type="int" Nullable="false" />
+          <Property Name="IdClass" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Teacher_subject">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdTeacher" Type="int" Nullable="false" />
+          <Property Name="IdSubject" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Teachers">
+          <Key>
+            <PropertyRef Name="IdTeacher" />
+          </Key>
+          <Property Name="IdTeacher" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Full_name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Number_of_audience" Type="int" Nullable="false" />
+          <Property Name="Hours_per_week" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Shedule_ToClasses">
+          <End Role="Classes" Type="Self.Classes" Multiplicity="1" />
+          <End Role="Shedule" Type="Self.Shedule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Classes">
+              <PropertyRef Name="IdClass" />
+            </Principal>
+            <Dependent Role="Shedule">
+              <PropertyRef Name="IdClass" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Shedule_ToLessons">
+          <End Role="Lessons" Type="Self.Lessons" Multiplicity="1" />
+          <End Role="Shedule" Type="Self.Shedule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Lessons">
+              <PropertyRef Name="IdLesson" />
+            </Principal>
+            <Dependent Role="Shedule">
+              <PropertyRef Name="IdLesson" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Shedule_ToSubject">
+          <End Role="Subjects" Type="Self.Subjects" Multiplicity="1" />
+          <End Role="Shedule" Type="Self.Shedule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Subjects">
+              <PropertyRef Name="IdSubject" />
+            </Principal>
+            <Dependent Role="Shedule">
+              <PropertyRef Name="IdSubject" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Shedule_ToTeacher">
+          <End Role="Teachers" Type="Self.Teachers" Multiplicity="1" />
+          <End Role="Shedule" Type="Self.Shedule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Teachers">
+              <PropertyRef Name="IdTeacher" />
+            </Principal>
+            <Dependent Role="Shedule">
+              <PropertyRef Name="IdTeacher" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Teacher_class_ToClasses">
+          <End Role="Classes" Type="Self.Classes" Multiplicity="1" />
+          <End Role="Teacher_class" Type="Self.Teacher_class" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Classes">
+              <PropertyRef Name="IdClass" />
+            </Principal>
+            <Dependent Role="Teacher_class">
+              <PropertyRef Name="IdClass" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Teacher_class_ToTeachers">
+          <End Role="Teachers" Type="Self.Teachers" Multiplicity="1" />
+          <End Role="Teacher_class" Type="Self.Teacher_class" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Teachers">
+              <PropertyRef Name="IdTeacher" />
+            </Principal>
+            <Dependent Role="Teacher_class">
+              <PropertyRef Name="IdTeacher" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Teacher_subject_ToSubjects">
+          <End Role="Subjects" Type="Self.Subjects" Multiplicity="1" />
+          <End Role="Teacher_subject" Type="Self.Teacher_subject" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Subjects">
+              <PropertyRef Name="IdSubject" />
+            </Principal>
+            <Dependent Role="Teacher_subject">
+              <PropertyRef Name="IdSubject" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Teacher_subject_ToTeachers">
+          <End Role="Teachers" Type="Self.Teachers" Multiplicity="1" />
+          <End Role="Teacher_subject" Type="Self.Teacher_subject" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Teachers">
+              <PropertyRef Name="IdTeacher" />
+            </Principal>
+            <Dependent Role="Teacher_subject">
+              <PropertyRef Name="IdTeacher" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище Database1ModelContainer">
+          <EntitySet Name="Classes" EntityType="Self.Classes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Lessons" EntityType="Self.Lessons" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Shedule" EntityType="Self.Shedule" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Subjects" EntityType="Self.Subjects" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Teacher_class" EntityType="Self.Teacher_class" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Teacher_subject" EntityType="Self.Teacher_subject" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Teachers" EntityType="Self.Teachers" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Shedule_ToClasses" Association="Self.FK_Shedule_ToClasses">
+            <End Role="Classes" EntitySet="Classes" />
+            <End Role="Shedule" EntitySet="Shedule" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Shedule_ToLessons" Association="Self.FK_Shedule_ToLessons">
+            <End Role="Lessons" EntitySet="Lessons" />
+            <End Role="Shedule" EntitySet="Shedule" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Shedule_ToSubject" Association="Self.FK_Shedule_ToSubject">
+            <End Role="Subjects" EntitySet="Subjects" />
+            <End Role="Shedule" EntitySet="Shedule" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Shedule_ToTeacher" Association="Self.FK_Shedule_ToTeacher">
+            <End Role="Teachers" EntitySet="Teachers" />
+            <End Role="Shedule" EntitySet="Shedule" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Teacher_class_ToClasses" Association="Self.FK_Teacher_class_ToClasses">
+            <End Role="Classes" EntitySet="Classes" />
+            <End Role="Teacher_class" EntitySet="Teacher_class" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Teacher_class_ToTeachers" Association="Self.FK_Teacher_class_ToTeachers">
+            <End Role="Teachers" EntitySet="Teachers" />
+            <End Role="Teacher_class" EntitySet="Teacher_class" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Teacher_subject_ToSubjects" Association="Self.FK_Teacher_subject_ToSubjects">
+            <End Role="Subjects" EntitySet="Subjects" />
+            <End Role="Teacher_subject" EntitySet="Teacher_subject" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Teacher_subject_ToTeachers" Association="Self.FK_Teacher_subject_ToTeachers">
+            <End Role="Teachers" EntitySet="Teachers" />
+            <End Role="Teacher_subject" EntitySet="Teacher_subject" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Database1Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Classes">
+          <Key>
+            <PropertyRef Name="IdClass" />
+          </Key>
+          <Property Name="IdClass" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Number_of_class" Type="Int32" Nullable="false" />
+          <Property Name="Letter_of_class" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Shedule" Relationship="Self.FK_Shedule_ToClasses" FromRole="Classes" ToRole="Shedule" />
+          <NavigationProperty Name="Teacher_class" Relationship="Self.FK_Teacher_class_ToClasses" FromRole="Classes" ToRole="Teacher_class" />
+        </EntityType>
+        <EntityType Name="Lessons">
+          <Key>
+            <PropertyRef Name="IdLesson" />
+          </Key>
+          <Property Name="IdLesson" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Time_of_start" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Time_of_end" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Shedule" Relationship="Self.FK_Shedule_ToLessons" FromRole="Lessons" ToRole="Shedule" />
+        </EntityType>
+        <EntityType Name="Shedule">
+          <Key>
+            <PropertyRef Name="Day_of_week" />
+            <PropertyRef Name="IdLesson" />
+          </Key>
+          <Property Name="Day_of_week" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="IdLesson" Type="Int32" Nullable="false" />
+          <Property Name="IdClass" Type="Int32" Nullable="false" />
+          <Property Name="IdTeacher" Type="Int32" Nullable="false" />
+          <Property Name="IdSubject" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Classes" Relationship="Self.FK_Shedule_ToClasses" FromRole="Shedule" ToRole="Classes" />
+          <NavigationProperty Name="Lessons" Relationship="Self.FK_Shedule_ToLessons" FromRole="Shedule" ToRole="Lessons" />
+          <NavigationProperty Name="Subjects" Relationship="Self.FK_Shedule_ToSubject" FromRole="Shedule" ToRole="Subjects" />
+          <NavigationProperty Name="Teachers" Relationship="Self.FK_Shedule_ToTeacher" FromRole="Shedule" ToRole="Teachers" />
+        </EntityType>
+        <EntityType Name="Subjects">
+          <Key>
+            <PropertyRef Name="IdSubject" />
+          </Key>
+          <Property Name="IdSubject" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Number_of_class" Type="Int32" Nullable="false" />
+          <Property Name="Name_of_subject" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Hours_per_week" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Shedule" Relationship="Self.FK_Shedule_ToSubject" FromRole="Subjects" ToRole="Shedule" />
+          <NavigationProperty Name="Teacher_subject" Relationship="Self.FK_Teacher_subject_ToSubjects" FromRole="Subjects" ToRole="Teacher_subject" />
+        </EntityType>
+        <EntityType Name="Teacher_class">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdTeacher" Type="Int32" Nullable="false" />
+          <Property Name="IdClass" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Classes" Relationship="Self.FK_Teacher_class_ToClasses" FromRole="Teacher_class" ToRole="Classes" />
+          <NavigationProperty Name="Teachers" Relationship="Self.FK_Teacher_class_ToTeachers" FromRole="Teacher_class" ToRole="Teachers" />
+        </EntityType>
+        <EntityType Name="Teacher_subject">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdTeacher" Type="Int32" Nullable="false" />
+          <Property Name="IdSubject" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Subjects" Relationship="Self.FK_Teacher_subject_ToSubjects" FromRole="Teacher_subject" ToRole="Subjects" />
+          <NavigationProperty Name="Teachers" Relationship="Self.FK_Teacher_subject_ToTeachers" FromRole="Teacher_subject" ToRole="Teachers" />
+        </EntityType>
+        <EntityType Name="Teachers">
+          <Key>
+            <PropertyRef Name="IdTeacher" />
+          </Key>
+          <Property Name="IdTeacher" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Full_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Number_of_audience" Type="Int32" Nullable="false" />
+          <Property Name="Hours_per_week" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Shedule" Relationship="Self.FK_Shedule_ToTeacher" FromRole="Teachers" ToRole="Shedule" />
+          <NavigationProperty Name="Teacher_class" Relationship="Self.FK_Teacher_class_ToTeachers" FromRole="Teachers" ToRole="Teacher_class" />
+          <NavigationProperty Name="Teacher_subject" Relationship="Self.FK_Teacher_subject_ToTeachers" FromRole="Teachers" ToRole="Teacher_subject" />
+        </EntityType>
+        <Association Name="FK_Shedule_ToClasses">
+          <End Role="Classes" Type="Self.Classes" Multiplicity="1" />
+          <End Role="Shedule" Type="Self.Shedule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Classes">
+              <PropertyRef Name="IdClass" />
+            </Principal>
+            <Dependent Role="Shedule">
+              <PropertyRef Name="IdClass" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Teacher_class_ToClasses">
+          <End Role="Classes" Type="Self.Classes" Multiplicity="1" />
+          <End Role="Teacher_class" Type="Self.Teacher_class" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Classes">
+              <PropertyRef Name="IdClass" />
+            </Principal>
+            <Dependent Role="Teacher_class">
+              <PropertyRef Name="IdClass" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Shedule_ToLessons">
+          <End Role="Lessons" Type="Self.Lessons" Multiplicity="1" />
+          <End Role="Shedule" Type="Self.Shedule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Lessons">
+              <PropertyRef Name="IdLesson" />
+            </Principal>
+            <Dependent Role="Shedule">
+              <PropertyRef Name="IdLesson" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Shedule_ToSubject">
+          <End Role="Subjects" Type="Self.Subjects" Multiplicity="1" />
+          <End Role="Shedule" Type="Self.Shedule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Subjects">
+              <PropertyRef Name="IdSubject" />
+            </Principal>
+            <Dependent Role="Shedule">
+              <PropertyRef Name="IdSubject" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Shedule_ToTeacher">
+          <End Role="Teachers" Type="Self.Teachers" Multiplicity="1" />
+          <End Role="Shedule" Type="Self.Shedule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Teachers">
+              <PropertyRef Name="IdTeacher" />
+            </Principal>
+            <Dependent Role="Shedule">
+              <PropertyRef Name="IdTeacher" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Teacher_subject_ToSubjects">
+          <End Role="Subjects" Type="Self.Subjects" Multiplicity="1" />
+          <End Role="Teacher_subject" Type="Self.Teacher_subject" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Subjects">
+              <PropertyRef Name="IdSubject" />
+            </Principal>
+            <Dependent Role="Teacher_subject">
+              <PropertyRef Name="IdSubject" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Teacher_class_ToTeachers">
+          <End Role="Teachers" Type="Self.Teachers" Multiplicity="1" />
+          <End Role="Teacher_class" Type="Self.Teacher_class" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Teachers">
+              <PropertyRef Name="IdTeacher" />
+            </Principal>
+            <Dependent Role="Teacher_class">
+              <PropertyRef Name="IdTeacher" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Teacher_subject_ToTeachers">
+          <End Role="Teachers" Type="Self.Teachers" Multiplicity="1" />
+          <End Role="Teacher_subject" Type="Self.Teacher_subject" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Teachers">
+              <PropertyRef Name="IdTeacher" />
+            </Principal>
+            <Dependent Role="Teacher_subject">
+              <PropertyRef Name="IdTeacher" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Database1Entities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Classes" EntityType="Self.Classes" />
+          <EntitySet Name="Lessons" EntityType="Self.Lessons" />
+          <EntitySet Name="Shedule" EntityType="Self.Shedule" />
+          <EntitySet Name="Subjects" EntityType="Self.Subjects" />
+          <EntitySet Name="Teacher_class" EntityType="Self.Teacher_class" />
+          <EntitySet Name="Teacher_subject" EntityType="Self.Teacher_subject" />
+          <EntitySet Name="Teachers" EntityType="Self.Teachers" />
+          <AssociationSet Name="FK_Shedule_ToClasses" Association="Self.FK_Shedule_ToClasses">
+            <End Role="Classes" EntitySet="Classes" />
+            <End Role="Shedule" EntitySet="Shedule" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Teacher_class_ToClasses" Association="Self.FK_Teacher_class_ToClasses">
+            <End Role="Classes" EntitySet="Classes" />
+            <End Role="Teacher_class" EntitySet="Teacher_class" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Shedule_ToLessons" Association="Self.FK_Shedule_ToLessons">
+            <End Role="Lessons" EntitySet="Lessons" />
+            <End Role="Shedule" EntitySet="Shedule" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Shedule_ToSubject" Association="Self.FK_Shedule_ToSubject">
+            <End Role="Subjects" EntitySet="Subjects" />
+            <End Role="Shedule" EntitySet="Shedule" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Shedule_ToTeacher" Association="Self.FK_Shedule_ToTeacher">
+            <End Role="Teachers" EntitySet="Teachers" />
+            <End Role="Shedule" EntitySet="Shedule" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Teacher_subject_ToSubjects" Association="Self.FK_Teacher_subject_ToSubjects">
+            <End Role="Subjects" EntitySet="Subjects" />
+            <End Role="Teacher_subject" EntitySet="Teacher_subject" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Teacher_class_ToTeachers" Association="Self.FK_Teacher_class_ToTeachers">
+            <End Role="Teachers" EntitySet="Teachers" />
+            <End Role="Teacher_class" EntitySet="Teacher_class" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Teacher_subject_ToTeachers" Association="Self.FK_Teacher_subject_ToTeachers">
+            <End Role="Teachers" EntitySet="Teachers" />
+            <End Role="Teacher_subject" EntitySet="Teacher_subject" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище Database1ModelContainer" CdmEntityContainer="Database1Entities1">
+          <EntitySetMapping Name="Classes">
+            <EntityTypeMapping TypeName="Database1Model.Classes">
+              <MappingFragment StoreEntitySet="Classes">
+                <ScalarProperty Name="IdClass" ColumnName="IdClass" />
+                <ScalarProperty Name="Number_of_class" ColumnName="Number_of_class" />
+                <ScalarProperty Name="Letter_of_class" ColumnName="Letter_of_class" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Lessons">
+            <EntityTypeMapping TypeName="Database1Model.Lessons">
+              <MappingFragment StoreEntitySet="Lessons">
+                <ScalarProperty Name="IdLesson" ColumnName="IdLesson" />
+                <ScalarProperty Name="Time_of_start" ColumnName="Time_of_start" />
+                <ScalarProperty Name="Time_of_end" ColumnName="Time_of_end" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Shedule">
+            <EntityTypeMapping TypeName="Database1Model.Shedule">
+              <MappingFragment StoreEntitySet="Shedule">
+                <ScalarProperty Name="Day_of_week" ColumnName="Day_of_week" />
+                <ScalarProperty Name="IdLesson" ColumnName="IdLesson" />
+                <ScalarProperty Name="IdClass" ColumnName="IdClass" />
+                <ScalarProperty Name="IdTeacher" ColumnName="IdTeacher" />
+                <ScalarProperty Name="IdSubject" ColumnName="IdSubject" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Subjects">
+            <EntityTypeMapping TypeName="Database1Model.Subjects">
+              <MappingFragment StoreEntitySet="Subjects">
+                <ScalarProperty Name="IdSubject" ColumnName="IdSubject" />
+                <ScalarProperty Name="Number_of_class" ColumnName="Number_of_class" />
+                <ScalarProperty Name="Name_of_subject" ColumnName="Name_of_subject" />
+                <ScalarProperty Name="Hours_per_week" ColumnName="Hours_per_week" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Teacher_class">
+            <EntityTypeMapping TypeName="Database1Model.Teacher_class">
+              <MappingFragment StoreEntitySet="Teacher_class">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="IdTeacher" ColumnName="IdTeacher" />
+                <ScalarProperty Name="IdClass" ColumnName="IdClass" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Teacher_subject">
+            <EntityTypeMapping TypeName="Database1Model.Teacher_subject">
+              <MappingFragment StoreEntitySet="Teacher_subject">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="IdTeacher" ColumnName="IdTeacher" />
+                <ScalarProperty Name="IdSubject" ColumnName="IdSubject" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Teachers">
+            <EntityTypeMapping TypeName="Database1Model.Teachers">
+              <MappingFragment StoreEntitySet="Teachers">
+                <ScalarProperty Name="IdTeacher" ColumnName="IdTeacher" />
+                <ScalarProperty Name="Full_name" ColumnName="Full_name" />
+                <ScalarProperty Name="Number_of_audience" ColumnName="Number_of_audience" />
+                <ScalarProperty Name="Hours_per_week" ColumnName="Hours_per_week" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
